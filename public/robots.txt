@@ -1,0 +1,11 @@
+# Q12 Agency Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://q12agency.com/sitemap.xml
+
+# Block common attack vectors
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
