@@ -11,7 +11,6 @@ const accounts = [
   { handle: "johnny_ugc", label: "UGC", followers: "8K+" },
 ];
 
-// Featured posts showcasing work (placeholder images - replace with actual content)
 const posts = [
   { id: 1, image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&q=80", likes: "2.4K", comments: "89" },
   { id: 2, image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&q=80", likes: "1.8K", comments: "52" },
@@ -29,10 +28,14 @@ export function Instagram() {
       <div className="container">
         {/* Header */}
         <div className="section-header">
-          <span className={`tag mb-4 ${inView ? "animate-in" : "opacity-0"}`}>
+          <span className={`tag ${inView ? "animate-in" : "opacity-0"}`}>
             Follow Along
           </span>
-          <h2 className={`text-white mb-4 ${inView ? "animate-in delay-1" : "opacity-0"}`}>
+          <h2
+            className={`text-white mt-4 mb-4 ${
+              inView ? "animate-in delay-1" : "opacity-0"
+            }`}
+          >
             On <span className="gradient-text">Instagram</span>
           </h2>
           <p className={`text-gray-400 ${inView ? "animate-in delay-2" : "opacity-0"}`}>
@@ -40,8 +43,12 @@ export function Instagram() {
           </p>
         </div>
 
-        {/* Account Links */}
-        <div className={`flex flex-wrap justify-center gap-3 mb-10 ${inView ? "animate-in delay-2" : "opacity-0"}`}>
+        {/* Account Links - Centered */}
+        <div
+          className={`flex flex-wrap justify-center gap-3 mb-10 ${
+            inView ? "animate-in delay-2" : "opacity-0"
+          }`}
+        >
           {accounts.map((account) => (
             <Link
               key={account.handle}
@@ -53,56 +60,61 @@ export function Instagram() {
               <InstagramIcon size={16} className="text-pink-400" />
               <span className="text-sm text-white font-medium">@{account.handle}</span>
               <span className="text-xs text-gray-500">{account.label}</span>
-              <ExternalLink size={12} className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </Link>
-          ))}
-        </div>
-
-        {/* Posts Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 max-w-4xl mx-auto">
-          {posts.map((post, i) => (
-            <Link
-              key={post.id}
-              href="https://instagram.com/q12_agency"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group relative aspect-square rounded-xl overflow-hidden ${
-                inView ? "animate-in" : "opacity-0"
-              }`}
-              style={{ animationDelay: `${(i + 3) * 0.1}s` }}
-            >
-              <Image
-                src={post.image}
-                alt={`Instagram post ${post.id}`}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                sizes="(max-width: 640px) 50vw, 33vw"
+              <ExternalLink
+                size={12}
+                className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity"
               />
-
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <div className="flex items-center gap-4 text-white">
-                  <span className="flex items-center gap-1">
-                    <Heart size={18} className="fill-white" />
-                    <span className="text-sm font-medium">{post.likes}</span>
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <MessageCircle size={18} className="fill-white" />
-                    <span className="text-sm font-medium">{post.comments}</span>
-                  </span>
-                </div>
-              </div>
             </Link>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className={`text-center mt-10 ${inView ? "animate-in delay-4" : "opacity-0"}`}>
+        {/* Posts Grid - Centered */}
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
+            {posts.map((post, i) => (
+              <Link
+                key={post.id}
+                href="https://instagram.com/q12_agency"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group relative aspect-square rounded-xl overflow-hidden ${
+                  inView ? "animate-in" : "opacity-0"
+                }`}
+                style={{ animationDelay: `${(i + 3) * 0.1}s` }}
+              >
+                <Image
+                  src={post.image}
+                  alt={`Instagram post ${post.id}`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 640px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <div className="flex items-center gap-4 text-white">
+                    <span className="flex items-center gap-1">
+                      <Heart size={18} className="fill-white" />
+                      <span className="text-sm font-medium">{post.likes}</span>
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <MessageCircle size={18} className="fill-white" />
+                      <span className="text-sm font-medium">{post.comments}</span>
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA - Centered */}
+        <div
+          className={`text-center mt-10 ${inView ? "animate-in delay-4" : "opacity-0"}`}
+        >
           <Link
             href="https://instagram.com/q12_agency"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-secondary inline-flex items-center gap-2"
+            className="btn btn-secondary"
           >
             <InstagramIcon size={18} />
             Follow @q12_agency

@@ -19,8 +19,12 @@ export function About() {
       <div className="container">
         {/* Header */}
         <div className="section-header">
-          <span className={`tag mb-4 ${inView ? "animate-in" : "opacity-0"}`}>About</span>
-          <h2 className={`text-white mb-4 ${inView ? "animate-in delay-1" : "opacity-0"}`}>
+          <span className={`tag ${inView ? "animate-in" : "opacity-0"}`}>About</span>
+          <h2
+            className={`text-white mt-4 mb-4 ${
+              inView ? "animate-in delay-1" : "opacity-0"
+            }`}
+          >
             Meet <span className="gradient-text">Johnny</span>
           </h2>
           <p className={`text-gray-400 ${inView ? "animate-in delay-2" : "opacity-0"}`}>
@@ -28,9 +32,11 @@ export function About() {
           </p>
         </div>
 
-        {/* Founder Card */}
-        <div className={`max-w-2xl mx-auto ${inView ? "animate-in delay-3" : "opacity-0"}`}>
-          <div className="card p-6 md:p-8 text-center">
+        {/* Founder Card - Centered */}
+        <div
+          className={`max-w-lg mx-auto ${inView ? "animate-in delay-3" : "opacity-0"}`}
+        >
+          <div className="card p-8 text-center">
             {/* Avatar */}
             <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[2px]">
               <div className="w-full h-full rounded-2xl bg-[#111] flex items-center justify-center">
@@ -39,15 +45,17 @@ export function About() {
             </div>
 
             <h3 className="text-xl font-bold text-white mb-1">Johnny Saffra</h3>
-            <p className="text-indigo-400 text-sm font-medium mb-4">Founder & Creative Director</p>
+            <p className="text-indigo-400 text-sm font-medium mb-4">
+              Founder & Creative Director
+            </p>
 
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-md mx-auto">
+            <p className="text-gray-400 text-sm leading-relaxed mb-6">
               With expertise in social media marketing and UGC content creation,
               Johnny helps ambitious brands tell authentic stories and achieve
               measurable growth through strategic content.
             </p>
 
-            {/* Social Links */}
+            {/* Social Links - Centered */}
             <div className="flex justify-center gap-3">
               {socials.map((social) => (
                 <Link
