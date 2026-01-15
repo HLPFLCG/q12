@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Q12 Agency
+
+Premium creative agency website for Johnny Saffra's Q12 Agency, specializing in UGC content creation and social media marketing.
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS 4
+- **Animations**: CSS animations + react-intersection-observer
+- **Icons**: Lucide React
+- **Deployment**: Cloudflare Pages
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── layout.tsx      # Root layout with metadata
+│   ├── page.tsx        # Homepage
+│   ├── globals.css     # Design system & animations
+│   └── not-found.tsx   # 404 page
+├── components/
+│   ├── Navigation.tsx  # Header with mobile menu
+│   ├── Hero.tsx        # Hero section with CTA
+│   ├── Services.tsx    # Services grid
+│   ├── Work.tsx        # Portfolio with filters
+│   ├── About.tsx       # Founder section
+│   ├── Testimonials.tsx # Client reviews carousel
+│   ├── Instagram.tsx   # Instagram feed section
+│   ├── Contact.tsx     # Contact form
+│   └── Footer.tsx      # Footer with links
+└── public/
+    ├── icon.svg        # Favicon
+    └── logo.svg        # Full logo
+```
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+### Cloudflare Pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Connect your GitHub repository to Cloudflare Pages
+2. Set build command: `npm run build`
+3. Set output directory: `.next`
+4. The `wrangler.toml` includes necessary compatibility flags
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Environment Variables
 
-## Deploy on Vercel
+For production, set these in your deployment platform:
+- Contact form uses Formspree (already configured)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Mobile-first responsive design
+- Smooth scroll animations
+- Auto-advancing testimonial carousel
+- Filterable portfolio gallery
+- Instagram integration
+- Contact form with Formspree
+- SEO optimized with metadata
+
+## Social Links
+
+- [@johnnysaffra](https://instagram.com/johnnysaffra) - Personal
+- [@q12_agency](https://instagram.com/q12_agency) - Agency
+- [@johnny_ugc](https://instagram.com/johnny_ugc) - UGC Content
+- [LinkedIn](https://linkedin.com/in/johnnysaffra)
+
+## License
+
+Private - Q12 Agency

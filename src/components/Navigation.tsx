@@ -2,118 +2,101 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
-const navItems = [
-  { name: "Services", href: "#services" },
-  { name: "Work", href: "#work" },
-  { name: "About", href: "#about" },
-  { name: "Testimonials", href: "#testimonials" },
-  { name: "Contact", href: "#contact" },
+const navLinks = [
+  { href: "#services", label: "Services" },
+  { href: "#work", label: "Work" },
+  { href: "#about", label: "About" },
+  { href: "#testimonials", label: "Testimonials" },
 ];
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isMobileOpen]);
+
   return (
-    <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-nav transition-all duration-300 ${
-          isScrolled ? "glass py-4" : "py-6"
-        }`}
-      >
-        <nav className="container-main flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-              <span className="text-white font-bold text-lg">Q</span>
-            </div>
-            <span className="text-xl font-bold text-white">
-              Q12<span className="text-indigo-400">Agency</span>
-            </span>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-black/90 backdrop-blur-md border-b border-white/5" : ""
+      }`}
+    >
+      <div className="container flex items-center justify-between h-16 md:h-20">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 z-50">
+          <Image src="/icon.svg" alt="Q12" width={32} height={32} priority />
+          <span className="text-xl font-bold text-white">
+            Q12<span className="text-indigo-400">.</span>
+          </span>
+        </Link>
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm text-gray-400 hover:text-white transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Link href="#contact" className="btn btn-primary text-sm py-2.5 px-5">
+            Get in Touch
           </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-zinc-400 hover:text-white transition-colors relative group"
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
-          </div>
-
-          {/* CTA Button */}
-          <Link
-            href="#contact"
-            className="hidden md:block btn-primary text-sm py-2.5 px-5"
-          >
-            Start a Project
-          </Link>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden relative z-10 w-10 h-10 flex flex-col items-center justify-center"
-            aria-label="Toggle menu"
-          >
-            <span
-              className={`w-6 h-0.5 bg-white block transition-all duration-300 ${
-                isMobileMenuOpen ? "rotate-45 translate-y-1" : ""
-              }`}
-            />
-            <span
-              className={`w-6 h-0.5 bg-white block mt-1.5 transition-all duration-300 ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`w-6 h-0.5 bg-white block mt-1.5 transition-all duration-300 ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-2.5" : ""
-              }`}
-            />
-          </button>
         </nav>
-      </header>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          className="md:hidden z-50 w-10 h-10 flex items-center justify-center text-white"
+          aria-label="Toggle menu"
+        >
+          {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-xl md:hidden transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 bg-black z-40 md:hidden transition-opacity duration-300 ${
+          isMobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
         <nav className="flex flex-col items-center justify-center h-full gap-8">
-          {navItems.map((item) => (
+          {navLinks.map((link, i) => (
             <Link
-              key={item.name}
-              href={item.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-3xl font-bold text-white hover:text-indigo-400 transition-colors"
+              key={link.href}
+              href={link.href}
+              onClick={() => setIsMobileOpen(false)}
+              className={`text-2xl font-semibold text-white hover:text-indigo-400 transition-all ${
+                isMobileOpen ? "animate-in" : ""
+              }`}
+              style={{ animationDelay: `${i * 0.1}s` }}
             >
-              {item.name}
+              {link.label}
             </Link>
           ))}
           <Link
             href="#contact"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="btn-primary mt-4"
+            onClick={() => setIsMobileOpen(false)}
+            className={`btn btn-primary mt-4 ${isMobileOpen ? "animate-in delay-4" : ""}`}
           >
-            Start a Project
+            Get in Touch
           </Link>
         </nav>
       </div>
-    </>
+    </header>
   );
 }

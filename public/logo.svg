@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <!-- Q12 Text -->
+  <text x="0" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="900" fill="white">
+    Q12
+  </text>
+  <!-- Accent dot -->
+  <circle cx="72" cy="28" r="4" fill="url(#logoGradient)"/>
+</svg>
