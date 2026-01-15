@@ -14,6 +14,7 @@ import {
   AlertCircle,
   Loader2,
 } from "lucide-react";
+import { submitForm, FORM_CONFIG } from "@/lib/form-config";
 
 interface FormState {
   name: string;
@@ -68,7 +69,16 @@ export function Contact() {
     if (!validateForm()) return;
     setStatus("loading");
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Submit form using configuration
+      const formData = {
+        name: formState.name,
+        email: formState.email,
+        company: formState.company,
+        budget: formState.budget,
+        message: formState.message,
+      };
+      
+      await submitForm(formData);
       setStatus("success");
       setFormState({ name: "", email: "", company: "", budget: "", message: "" });
     } catch {
@@ -125,7 +135,7 @@ export function Contact() {
 
             <div className="space-y-4">
               <a
-                href="mailto:hello@q12agency.com"
+                href={`mailto:${FORM_CONFIG.contactEmail}`}
                 className="flex items-center gap-4 p-4 glass rounded-xl text-zinc-400 hover:text-white transition-colors group"
               >
                 <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500/30 transition-colors">
@@ -133,7 +143,7 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500">Email</p>
-                  <p className="font-medium text-white">hello@q12agency.com</p>
+                  <p className="font-medium text-white">{FORM_CONFIG.contactEmail}</p>
                 </div>
               </a>
 
@@ -143,7 +153,7 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500">Phone</p>
-                  <p className="font-medium text-white">+1 (555) 123-4567</p>
+                  <p className="font-medium text-white">{FORM_CONFIG.contactPhone}</p>
                 </div>
               </div>
 
@@ -153,7 +163,7 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500">Location</p>
-                  <p className="font-medium text-white">New York, NY</p>
+                  <p className="font-medium text-white">{FORM_CONFIG.location}</p>
                 </div>
               </div>
             </div>

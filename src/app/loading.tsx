@@ -1,14 +1,18 @@
+import { Loader2 } from "lucide-react";
+
 export default function Loading() {
   return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
-      <div className="relative">
-        {/* Logo Animation */}
-        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center animate-pulse">
-          <span className="text-white font-bold text-3xl">Q</span>
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="text-center">
+        {/* Logo */}
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-2xl mb-6 animate-pulse">
+          <span className="text-4xl font-black text-white">Q</span>
         </div>
-        {/* Loading Ring */}
-        <div className="absolute -inset-4">
-          <div className="w-full h-full rounded-3xl border-2 border-indigo-500/20 border-t-indigo-500 animate-spin" />
+
+        {/* Loading Indicator */}
+        <div className="flex items-center justify-center gap-3">
+          <Loader2 className="w-6 h-6 text-indigo-400 animate-spin" />
+          <p className="text-zinc-400">Loading...</p>
         </div>
       </div>
     </div>
