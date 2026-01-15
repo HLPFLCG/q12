@@ -4,6 +4,5 @@ export { Services } from "./Services";
 export { Work } from "./Work";
 export { About } from "./About";
 export { Testimonials } from "./Testimonials";
-export { Instagram } from "./Instagram";
 export { Contact } from "./Contact";
 export { Footer } from "./Footer";

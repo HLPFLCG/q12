@@ -2,105 +2,94 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
-const navLinks = [
+const links = [
   { href: "#services", label: "Services" },
   { href: "#work", label: "Work" },
   { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
 ];
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isMobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMobileOpen]);
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+  }, [menuOpen]);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/95 backdrop-blur-md border-b border-white/5" : ""
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+        scrolled ? "bg-black/80 backdrop-blur-md border-b border-[#1a1a1a]" : ""
       }`}
     >
       <div className="container">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 z-50">
-            <Image src="/icon.svg" alt="Q12" width={32} height={32} priority />
-            <span className="text-xl font-bold text-white">
-              Q12<span className="text-indigo-400">.</span>
-            </span>
+          <Link href="/" className="text-xl font-semibold tracking-tight">
+            Q12<span className="text-[#6366f1]">.</span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+          <div className="hidden md:flex items-center gap-8">
+            {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm text-gray-400 hover:text-white transition-colors"
+                className="text-sm text-[#888] hover:text-white transition-colors"
               >
                 {link.label}
               </Link>
             ))}
             <Link href="#contact" className="btn btn-primary text-sm py-2.5 px-5">
-              Get in Touch
+              Contact
             </Link>
-          </nav>
+          </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Toggle */}
           <button
-            onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="md:hidden z-50 w-10 h-10 flex items-center justify-center text-white"
-            aria-label="Toggle menu"
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden p-2 text-white"
+            aria-label="Menu"
           >
-            {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-        </div>
+        </nav>
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`fixed inset-0 bg-black z-40 md:hidden transition-opacity duration-300 ${
-          isMobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="flex flex-col items-center justify-center h-full gap-8">
-          {navLinks.map((link, i) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsMobileOpen(false)}
-              className={`text-2xl font-semibold text-white hover:text-indigo-400 transition-all ${
-                isMobileOpen ? "animate-in" : ""
-              }`}
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            href="#contact"
-            onClick={() => setIsMobileOpen(false)}
-            className={`btn btn-primary mt-4 ${isMobileOpen ? "animate-in delay-4" : ""}`}
-          >
-            Get in Touch
-          </Link>
+      {menuOpen && (
+        <div className="fixed inset-0 bg-black z-40 md:hidden pt-20">
+          <div className="container py-12">
+            <div className="flex flex-col gap-6">
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-2xl font-medium text-white"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href="#contact"
+                onClick={() => setMenuOpen(false)}
+                className="btn btn-primary w-fit mt-4"
+              >
+                Contact
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }

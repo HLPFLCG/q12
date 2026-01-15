@@ -1,38 +1,31 @@
 "use client";
 
 import { useInView } from "react-intersection-observer";
-import { Video, Users, Megaphone, Palette, TrendingUp, BarChart3 } from "lucide-react";
 
 const services = [
   {
-    icon: Video,
     title: "UGC Content",
-    desc: "Authentic content that builds trust and drives conversions.",
+    description: "Authentic creator content that builds trust and drives conversions.",
   },
   {
-    icon: Users,
     title: "Social Media",
-    desc: "Full-service management that grows your audience.",
+    description: "Full-service management that grows your audience organically.",
   },
   {
-    icon: Megaphone,
     title: "Content Strategy",
-    desc: "Data-driven strategies that resonate with your audience.",
+    description: "Data-driven strategies that resonate with your target audience.",
   },
   {
-    icon: Palette,
     title: "Creative Direction",
-    desc: "Visual storytelling that elevates your brand.",
+    description: "Visual storytelling that elevates and differentiates your brand.",
   },
   {
-    icon: TrendingUp,
     title: "Paid Media",
-    desc: "Performance campaigns that maximize your ROI.",
+    description: "Performance campaigns optimized to maximize your ROI.",
   },
   {
-    icon: BarChart3,
     title: "Analytics",
-    desc: "Insights that inform strategy and demonstrate results.",
+    description: "Insights and reporting that inform strategy and show results.",
   },
 ];
 
@@ -40,40 +33,28 @@ export function Services() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="services" className="section bg-black" ref={ref}>
+    <section id="services" className="section" ref={ref}>
       <div className="container">
         {/* Header */}
-        <div className="section-header">
-          <span className={`tag ${inView ? "animate-in" : "opacity-0"}`}>
+        <div className="max-w-xl mb-16">
+          <span className={`label mb-4 ${inView ? "animate-in" : "opacity-0"}`}>
             Services
           </span>
-          <h2
-            className={`text-white mt-4 mb-4 ${
-              inView ? "animate-in delay-1" : "opacity-0"
-            }`}
-          >
-            What We <span className="gradient-text">Do</span>
+          <h2 className={`mt-4 ${inView ? "animate-in delay-1" : "opacity-0"}`}>
+            What we do
           </h2>
-          <p className={`text-gray-400 ${inView ? "animate-in delay-2" : "opacity-0"}`}>
-            End-to-end creative solutions for modern brands.
-          </p>
         </div>
 
         {/* Grid */}
-        <div className="grid-services">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, i) => (
             <div
               key={service.title}
-              className={`card ${inView ? "animate-in" : "opacity-0"}`}
-              style={{ animationDelay: `${(i + 3) * 0.1}s` }}
+              className={`card p-8 ${inView ? "animate-in" : "opacity-0"}`}
+              style={{ animationDelay: `${(i + 2) * 0.1}s` }}
             >
-              <div className="icon-box mb-4">
-                <service.icon size={24} className="text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                {service.title}
-              </h3>
-              <p className="text-sm text-gray-500">{service.desc}</p>
+              <h3 className="text-white mb-3">{service.title}</h3>
+              <p className="text-sm leading-relaxed">{service.description}</p>
             </div>
           ))}
         </div>
