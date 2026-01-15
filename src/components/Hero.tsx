@@ -1,199 +1,89 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { ArrowDown, Play, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Play } from "lucide-react";
 
 export function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
-    >
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        {/* Gradient Orbs */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-indigo-600/30 to-purple-600/30 blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-purple-600/30 to-pink-600/30 blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-600/20 to-indigo-600/20 blur-[150px]"
-        />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0a0a0a]">
+        {/* Subtle gradient orbs - static blur for performance */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-br from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse-accent" />
+        <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-tl from-purple-500/15 to-transparent rounded-full blur-3xl animate-pulse-accent" style={{ animationDelay: "2s" }} />
 
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 grid-pattern opacity-30" />
-
-        {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{
-              x: Math.random() * (typeof window !== "undefined" ? window.innerWidth : 1000),
-              y: Math.random() * (typeof window !== "undefined" ? window.innerHeight : 800),
-            }}
-            animate={{
-              y: [null, Math.random() * -200 - 100],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: Math.random() * 5 + 5,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-            }}
-            className="absolute w-1 h-1 bg-white/30 rounded-full"
-          />
-        ))}
+        {/* Grid pattern */}
+        <div className="absolute inset-0 grid-pattern" />
       </div>
 
       {/* Content */}
-      <motion.div style={{ y, opacity }} className="relative z-10 max-w-7xl mx-auto px-6 text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
-        >
-          <Sparkles className="w-4 h-4 text-indigo-400" />
-          <span className="text-sm font-medium text-white/80">Award-Winning Creative Agency</span>
-        </motion.div>
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        {/* Logo/Brand */}
+        <div className="animate-fade-in mb-8">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-2xl mb-6">
+            <span className="text-4xl font-black text-white">Q</span>
+          </div>
+        </div>
 
-        {/* Main Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
-        >
-          <span className="text-white">We Create</span>
-          <br />
-          <span className="gradient-text">Content That</span>
-          <br />
-          <span className="text-white">Converts</span>
-        </motion.h1>
+        {/* Main Headline */}
+        <h1 className="animate-fade-in animate-fade-in-delay-1">
+          <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] mb-4">
+            Q12 AGENCY
+          </span>
+        </h1>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed"
-        >
-          Q12 Agency is a premium creative studio specializing in UGC, social media management,
-          and content creation that drives real results for ambitious brands.
-        </motion.p>
+        {/* Tagline */}
+        <p className="animate-fade-in animate-fade-in-delay-2 text-xl sm:text-2xl md:text-3xl text-indigo-400 font-light max-w-3xl mx-auto mb-4 tracking-wide">
+          Content That Converts. Results That Matter.
+        </p>
+
+        {/* Description */}
+        <p className="animate-fade-in animate-fade-in-delay-3 text-lg text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+          Premium creative agency specializing in UGC content creation, social media management,
+          and marketing strategies that drive real results for ambitious brands.
+        </p>
 
         {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary text-lg px-8 py-4 flex items-center gap-2"
-          >
+        <div className="animate-fade-in animate-fade-in-delay-4 flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+          <Link href="#contact" className="btn-primary group">
             Get Started
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </motion.a>
-          <motion.a
-            href="#work"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-secondary text-lg px-8 py-4 flex items-center gap-2"
-          >
+            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+          </Link>
+          <Link href="#work" className="btn-secondary group">
             <Play className="w-5 h-5" />
             View Our Work
-          </motion.a>
-        </motion.div>
+          </Link>
+        </div>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12 border-t border-white/10"
-        >
+        <div className="animate-fade-in animate-fade-in-delay-5 grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-zinc-800">
           {[
             { value: "50M+", label: "Total Views" },
-            { value: "200+", label: "Projects Delivered" },
+            { value: "200+", label: "Projects" },
             { value: "95%", label: "Client Retention" },
             { value: "24/7", label: "Support" },
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 + index * 0.1 }}
-              className="text-center"
-            >
-              <div className="text-3xl md:text-4xl font-bold gradient-text mb-2">
+          ].map((stat) => (
+            <div key={stat.label} className="text-center hover-lift">
+              <div className="text-3xl md:text-4xl font-bold text-indigo-400 mb-1">
                 {stat.value}
               </div>
-              <div className="text-sm text-white/50">{stat.label}</div>
-            </motion.div>
+              <div className="text-sm text-zinc-500 uppercase tracking-wider">
+                {stat.label}
+              </div>
+            </div>
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-white/50"
-        >
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in" style={{ animationDelay: "1s" }}>
+        <div className="flex flex-col items-center gap-2 text-zinc-600">
           <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <ArrowDown className="w-4 h-4" />
-        </motion.div>
-      </motion.div>
+          <div className="w-5 h-8 rounded-full border border-zinc-700 flex justify-center pt-2">
+            <div className="w-1 h-2 bg-zinc-600 rounded-full animate-float" />
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

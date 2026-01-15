@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "Services", href: "#services" },
@@ -27,133 +25,95 @@ export function Navigation() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      <header
+        className={`fixed top-0 left-0 right-0 z-nav transition-all duration-300 ${
           isScrolled ? "glass py-4" : "py-6"
-        )}
+        }`}
       >
-        <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <nav className="container-main flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="relative z-10">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2"
-            >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">Q</span>
-              </div>
-              <span className="text-xl font-bold text-white">
-                Q12<span className="gradient-text">Agency</span>
-              </span>
-            </motion.div>
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+              <span className="text-white font-bold text-lg">Q</span>
+            </div>
+            <span className="text-xl font-bold text-white">
+              Q12<span className="text-indigo-400">Agency</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item, index) => (
-              <motion.a
+            {navItems.map((item) => (
+              <Link
                 key={item.name}
                 href={item.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group"
+                className="text-sm font-medium text-zinc-400 hover:text-white transition-colors relative group"
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300 group-hover:w-full" />
-              </motion.a>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all duration-300 group-hover:w-full" />
+              </Link>
             ))}
           </div>
 
           {/* CTA Button */}
-          <motion.a
+          <Link
             href="#contact"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="hidden md:block btn-primary text-sm py-3 px-6"
+            className="hidden md:block btn-primary text-sm py-2.5 px-5"
           >
             Start a Project
-          </motion.a>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden relative z-10 w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+            className="md:hidden relative z-10 w-10 h-10 flex flex-col items-center justify-center"
             aria-label="Toggle menu"
           >
-            <motion.span
-              animate={{
-                rotate: isMobileMenuOpen ? 45 : 0,
-                y: isMobileMenuOpen ? 6 : 0,
-              }}
-              className="w-6 h-0.5 bg-white block"
+            <span
+              className={`w-6 h-0.5 bg-white block transition-all duration-300 ${
+                isMobileMenuOpen ? "rotate-45 translate-y-1" : ""
+              }`}
             />
-            <motion.span
-              animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
-              className="w-6 h-0.5 bg-white block"
+            <span
+              className={`w-6 h-0.5 bg-white block mt-1.5 transition-all duration-300 ${
+                isMobileMenuOpen ? "opacity-0" : ""
+              }`}
             />
-            <motion.span
-              animate={{
-                rotate: isMobileMenuOpen ? -45 : 0,
-                y: isMobileMenuOpen ? -6 : 0,
-              }}
-              className="w-6 h-0.5 bg-white block"
+            <span
+              className={`w-6 h-0.5 bg-white block mt-1.5 transition-all duration-300 ${
+                isMobileMenuOpen ? "-rotate-45 -translate-y-2.5" : ""
+              }`}
             />
           </button>
         </nav>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl md:hidden"
-          >
-            <motion.nav
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ delay: 0.1 }}
-              className="flex flex-col items-center justify-center h-full gap-8"
+      <div
+        className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-xl md:hidden transition-opacity duration-300 ${
+          isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <nav className="flex flex-col items-center justify-center h-full gap-8">
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-3xl font-bold text-white hover:text-indigo-400 transition-colors"
             >
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + index * 0.1 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-3xl font-bold text-white hover:text-indigo-400 transition-colors"
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-              <motion.a
-                href="#contact"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="btn-primary mt-4"
-              >
-                Start a Project
-              </motion.a>
-            </motion.nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {item.name}
+            </Link>
+          ))}
+          <Link
+            href="#contact"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="btn-primary mt-4"
+          >
+            Start a Project
+          </Link>
+        </nav>
+      </div>
     </>
   );
 }
