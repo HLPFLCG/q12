@@ -27,7 +27,8 @@ export const FORM_CONFIG = {
   contactEmail: "hello@q12agency.com",
   
   // Contact phone (display only)
-  contactPhone: "+1 (555) 123-4567", // Update with real number
+  // TODO: Update with real phone number
+  contactPhone: "+1 (555) 123-4567",
   
   // Location
   location: "New York, NY",
@@ -55,8 +56,9 @@ export async function submitForm(formData: Record<string, string>) {
     return await response.json();
   }
   
-  // Alternative: Mock submission for development
-  console.log("Form submitted:", formData);
+  // Alternative: Mock submission for development/testing
+  // This allows the form to work in development without a real backend
+  console.log("Form submitted (development mode):", formData);
   await new Promise(resolve => setTimeout(resolve, 2000));
   
   return { ok: true, message: "Form submitted successfully" };
